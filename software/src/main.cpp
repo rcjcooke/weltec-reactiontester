@@ -85,7 +85,7 @@ void setup() {
   byte segmentPins[] = {DISPLAY_A_PIN, DISPLAY_B_PIN, DISPLAY_C_PIN,
                         DISPLAY_D_PIN, DISPLAY_E_PIN, DISPLAY_F_PIN,
                         DISPLAY_G_PIN, DISPLAY_DP_PIN};
-  mSevenSegmentDisplay.begin(COMMON_CATHODE, numDigits, digitPins, segmentPins);
+  mSevenSegmentDisplay.begin(N_TRANSISTORS, numDigits, digitPins, segmentPins, true, false, false);
 
   // Set up Interrupts
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), buttonPressedISR, CHANGE);
@@ -111,7 +111,7 @@ void loop() {
     digitalWrite(LED_PIN, LOW);
     // Calculate the time difference and display it
     long timeDiff = curTime - mLastLightOnTime;
-    mSevenSegmentDisplay.setNumber(timeDiff, 1);
+    mSevenSegmentDisplay.setNumber(timeDiff, 0);
     // Reset for next time
     mSystemTimeOfNextLight = generateNextLightTime();
     gButtonStateChangeToAction = false;
