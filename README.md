@@ -34,7 +34,7 @@ Note that we're assuming we add resistors per segment rather than per digit. Thi
 
 ### Electronics
 
-The (somewhat difficult to decipher!) breadboard design can be seen below.
+The (somewhat difficult to decipher!) breadboard design can be seen below. The Fritzing file can be found in the electronics subfolder.
 
 ![Breadboard design](./electronics/breadboard.png)
 
@@ -42,9 +42,9 @@ Note: Fritzing didn't include QDSP6064 out the box so I used the part available 
 
 The schematic below shows an example for 2 segments and 2 digits wired up with the external MOSFETs for a complete circuit. In reality, the segments and digits are wired together with a common cathode internally to the seven segment display.
 
-![wiring of digits and segments](circuitwiring.PNG)
+![wiring of digits and segments](internalwiring.JPG)
 
-The schematic, below, is the external wiring for the componentry.
+The schematic (Eagle model in the electronics directory), below, is the external wiring for the componentry.
 
 ![circuit schematic](schematic.PNG)
 
@@ -61,6 +61,8 @@ Of interest in the software is:
 ## Results
 The system works as expected.
 
+![Working System Photo](workingsystem.jpg)
+
 An interesting side-effect of the seven segment library is that if the reaction time is longer than 9999 milliseconds, the library realises that this takes more than 4 digits and replaces the output with "`----`".
 
 My reaction times to the rounded down to the nearest milliseconds on 5 successive tests came out as:
@@ -73,8 +75,19 @@ My reaction times to the rounded down to the nearest milliseconds on 5 successiv
 | 255                |
 | 204                |
 
+While diagnosing a wiring problem a peculiar oscillogram was noticed at the cathode pin for the digits of the 7-segment-display. Channel 1, yellow, is the cathode pin, which corresponds to the drain on one of the MOSFETs. Channel 2, blue, is the gate for the same MOSFET as controlled by the microcontroller. Given more time it would be interesting to dig in to why it looks the way it does in more detail.
+
+![Oscillogram](cathodeoscillogram.JPG)
+
 ## Conclusions
 
-Although MOSFETs and limiting resisters were used in this case, they were generally not needed since the currents running through this particular display unit were so low, however this circuit can be used as is with much higher power display units with the MOSFETs in place. 
+This circuitry was over-engineered. Although MOSFETs and limiting resisters were used in this case, they were generally not needed since the currents running through this particular display unit were so low, however, this circuit can be used as is with much higher power display units with the MOSFETs in place. 
 
 ## References
+
+**Note**: Some relevent datasheets can be found in the datasheets directory of this repository.
+
+
+1. Hewlett Packard Components. (n.d.). QDSP-6064 4-DIGITS MICRO NUMERIC INDICATOR (7 Segment Monolithic). 
+2. International Rectifier. (2007). IRLR8743PbF HEXFET Power MOSFET. 
+3. PJRC. (2018, August 24). Teensy 3.2 & 3.1: New Features. Retrieved from pjrc.com: https://www.pjrc.com/teensy/teensy31.html#specs
