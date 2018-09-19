@@ -40,7 +40,41 @@ The (somewhat difficult to decipher!) breadboard design can be seen below.
 
 Note: Fritzing didn't include QDSP6064 out the box so I used the part available from: https://github.com/RichardBronosky/QDSP-6064
 
-The schematic, below, is more useful for understanding how the circuit actually fits together. 
+The schematic below shows an example for 2 segments and 2 digits wired up with the external MOSFETs for a complete circuit. In reality, the segments and digits are wired together with a common cathode internally to the seven segment display.
 
+![wiring of digits and segments](circuitwiring.PNG)
+
+The schematic, below, is the external wiring for the componentry.
+
+![circuit schematic](schematic.PNG)
+
+It is worth noting the resistors:
+* The 1k resistors are used as current limiting resistors to ensure the microcontroller isn't damaged by excessive current draw when the MOSFET is switched high. At that point it is entirely discharged so will potentially have a very high current draw.
+* The 10k resistors are there to ensure that the MOSFET gate is pulled low to ensure that the gate is off.
+* The 340 Ohm resistors, as mentioned previously, act as current limiting resistors for the segment LEDs. 
 
 ### Software
+Of interest in the software is:
+* **The switch debouncing** - we intentionally trigger on first interrupt and then lock out to ensure we know instantly when the user presses the button. We then measure the time from the moment the light is turned on to the first interrupt.
+* **The Seven Segment library setup** - We use N-TRANSISTOR in the setup since we are using external MOSFETs to switch the digits on. This means that they need to be switched high, despite the fact that the segment LEDs share a common cathode.
+
+## Results
+The system works as expected.
+
+An interesting side-effect of the seven segment library is that if the reaction time is longer than 9999 milliseconds, the library realises that this takes more than 4 digits and replaces the output with "`----`".
+
+My reaction times to the rounded down to the nearest milliseconds on 5 successive tests came out as:
+
+| Reaction Time / ms |
+|--------------------|
+| 231                |
+| 181                |
+| 189                |
+| 255                |
+| 204                |
+
+## Conclusions
+
+Although MOSFETs and limiting resisters were used in this case, they were generally not needed since the currents running through this particular display unit were so low, however this circuit can be used as is with much higher power display units with the MOSFETs in place. 
+
+## References
