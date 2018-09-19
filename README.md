@@ -28,11 +28,11 @@ Based on datasheet for the 4-digit-display, the maximum forward current per segm
 
 The forward voltage of each segment is typically 1.6V so we need to cut down our 3.3V supply voltage with a voltage divider. The resistance across the diode for it's specified average segment current of 5mA = 1.6/0.005 = 320 Ohm. 
 
-![Equation 1](./media/eq1.PNG)
+![Equation 1](http://latex.codecogs.com/gif.latex?%5Cfrac%7B1.6%7D%7B0.005%7D%3D320%5COmega)
 
 Using this we can therefore use ratios to calculate the resistor we need. R/(R+320) = (3.3-1.6)/3.3 => R = 340 Ohm per segment.
 
-![Equation 2](./media/eq2.PNG)
+![Equation 2](http://latex.codecogs.com/gif.latex?%5Cfrac%7BR%7D%7BR&plus;320%7D%3D%5Cfrac%7B3.3-1.6%7D%7B3.3%7D%20%5CRightarrow%20R%3D340%5COmega)
 
 Note that we're assuming we add resistors per segment rather than per digit. This is so that we have consistent brightness for a digit regardless of how many segments are lit.
 
