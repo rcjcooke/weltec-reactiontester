@@ -48,11 +48,19 @@ Note that we're assuming we add resistors per segment rather than per digit. Thi
 |          |                 | 1 | N-Channel Power MOSFET | IRLU8743 IPAK |
 |          |                 | 1 | Button                 |               |
 
+Eagle component libraries for some of these components were sourced as follows:
+* QDSP6064 - https://github.com/AustinHackers/ahabadge/tree/master/eagle%20libraries
+* IRLU8743 - https://www.diymodules.org/eagle-show-library?type=usr&id=101529&part=IGBT.lbr
+* Teensy - https://forum.pjrc.com/threads/24006-Eagle-library-for-MK20DX128VLH5?p=71944&viewfull=1#post71944
+* Push button - https://github.com/sparkfun/SparkFun-Eagle-Libraries/blob/master/SparkFun-Switches.lbr
+
+The library files can be found in the electronics folder.
+
 ### Electronics
 
 The (somewhat difficult to decipher!) breadboard design can be seen below. The Fritzing file can be found in the electronics subfolder.
 
-![Breadboard design](./electronics/breadboard.png)
+![Breadboard design](./media/breadboard.png)
 
 Note: Fritzing didn't include QDSP6064 out the box so I used the part available from: https://github.com/RichardBronosky/QDSP-6064
 
@@ -62,7 +70,7 @@ The schematic below shows an example for 2 segments and 2 digits wired up with t
 
 The schematic (Eagle model in the electronics directory), below, is the external wiring for the componentry.
 
-![circuit schematic](./electronics/schematic.PNG)
+![circuit schematic](./media/schematic.png)
 
 It is worth noting the resistors:
 * The 1k resistors are used as current limiting resistors to ensure the microcontroller isn't damaged by excessive current draw when the MOSFET is switched high. At that point it is entirely discharged so will potentially have a very high current draw.
